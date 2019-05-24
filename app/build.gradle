@@ -19,6 +19,16 @@ android {
 }
 
 dependencies {
+    def lifecycle_version = "2.0.0"
+    // Had to downgrade Room version due to issue with alpha06
+    // Error message was "Note: Failed to read get kotlin metadata for"
+    // This solution is mentioned in https://stackoverflow.com/a/55441497
+    def room_version = "2.1.0-alpha04"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

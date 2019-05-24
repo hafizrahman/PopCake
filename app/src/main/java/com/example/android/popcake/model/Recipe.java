@@ -3,6 +3,10 @@ package com.example.android.popcake.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.Ignore;
+
 import java.util.List;
 
 public class Recipe {
@@ -15,9 +19,11 @@ public class Recipe {
     private String name;
     @SerializedName("ingredients")
     @Expose
+    @Ignore
     private List<Ingredient> ingredients = null;
     @SerializedName("steps")
     @Expose
+    @Ignore
     private List<Step> steps = null;
     @SerializedName("servings")
     @Expose
