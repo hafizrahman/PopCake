@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.android.popcake.Const;
 import com.example.android.popcake.network.RecipeService;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -31,17 +31,20 @@ public class RecipeRepository {
                 .client(client)
                 .build();
 
-        Call<JsonObject> mRecipes = service.getRecipes();
-        mRecipes.enqueue(new Callback<JsonObject>() {
+        service = retrofit.create(RecipeService.class);
+        final Call<JsonArray> mRecipes = service.getRecipes();
+
+        mRecipes.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject mResponse = response.body();
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                JsonArray mResponse = response.body();
+                //JsonArray mResults = mResponse.getAsJsonArray();
                 // TODO: Do something with the response, save it to the database
                 Log.d(Const.APP_TAG, mResponse.toString());
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 Log.d(Const.APP_TAG, "Network fail.");
                 t.printStackTrace();
 
