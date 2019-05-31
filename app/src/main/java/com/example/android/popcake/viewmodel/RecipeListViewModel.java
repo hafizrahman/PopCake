@@ -15,11 +15,12 @@ public class RecipeListViewModel extends AndroidViewModel {
     private LiveData<List<Recipe>> mRecipeList;
     public RecipeListViewModel(Application application) {
         super(application);
+        // This will create the repository, in which it will also do a network call.
         mRepository = new RecipeRepository(application);
     }
 
     // TODO: create function inside the repository to pull data from DB, then use the method below to populate
-    public setRecipeList() {
+    public void setRecipeList() {
         // mRecipeList = mRepository.TODOthismethod()l
     }
 

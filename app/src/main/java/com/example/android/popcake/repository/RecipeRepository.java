@@ -37,6 +37,7 @@ public class RecipeRepository {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 JsonObject mResponse = response.body();
                 // TODO: Do something with the response, save it to the database
+                Log.d(Const.APP_TAG, mResponse.toString());
             }
 
             @Override
