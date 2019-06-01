@@ -1,5 +1,6 @@
 package com.example.android.popcake.model;
 
+import com.example.android.popcake.Const;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,8 +10,8 @@ import androidx.room.Ignore;
 
 import java.util.List;
 
+@Entity(tableName = Const.DB_TABLE_RECIPE)
 public class Recipe {
-
     @SerializedName("id")
     @Expose
     @PrimaryKey

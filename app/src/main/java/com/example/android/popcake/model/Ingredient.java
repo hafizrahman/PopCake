@@ -1,10 +1,13 @@
 package com.example.android.popcake.model;
 
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.android.popcake.Const;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = Const.DB_TABLE_INGREDIENT)
 public class Ingredient {
     @SerializedName("recipeId")
     @Expose
