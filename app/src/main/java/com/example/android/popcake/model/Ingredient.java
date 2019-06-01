@@ -1,10 +1,14 @@
 package com.example.android.popcake.model;
 
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
-
+    @SerializedName("recipeId")
+    @Expose
+    private Integer recipeId;
     @SerializedName("quantity")
     @Expose
     private Integer quantity;
@@ -14,6 +18,14 @@ public class Ingredient {
     @SerializedName("ingredient")
     @Expose
     private String ingredient;
+
+    public Integer getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Integer recipeId) {
+        this.recipeId = recipeId;
+    }
 
     public Integer getQuantity() {
         return quantity;

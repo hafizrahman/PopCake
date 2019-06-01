@@ -13,6 +13,7 @@ public class Recipe {
 
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
     @SerializedName("name")
     @Expose
