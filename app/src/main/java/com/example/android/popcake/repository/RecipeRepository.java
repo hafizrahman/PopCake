@@ -91,10 +91,7 @@ public class RecipeRepository {
                         tempStep.setRecipeId(tempRecipe.getId());
                         new insertStepAsyncTask(mStepDAO).execute(tempStep);
                     }
-
                 }
-
-                // TODO Also save the content from JSON to DB for Ingredients and Steps for each Recipe
             }
 
 
