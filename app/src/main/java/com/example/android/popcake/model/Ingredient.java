@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Const.DB_TABLE_INGREDIENT)
 public class Ingredient {
+    @PrimaryKey(autoGenerate = true)
+    private Integer ingredientId;
     @SerializedName("recipeId")
     @Expose
     private Integer recipeId;
@@ -22,13 +24,13 @@ public class Ingredient {
     @Expose
     private String ingredient;
 
-    public Integer getRecipeId() {
-        return recipeId;
-    }
+    public Integer getIngredientId() { return ingredientId; }
 
-    public void setRecipeId(Integer recipeId) {
-        this.recipeId = recipeId;
-    }
+    public void setIngredientId(Integer ingredientId) { this.ingredientId = ingredientId; }
+
+    public Integer getRecipeId() { return recipeId; }
+
+    public void setRecipeId(Integer recipeId) { this.recipeId = recipeId; }
 
     public Integer getQuantity() {
         return quantity;

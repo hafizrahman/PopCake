@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Const.DB_TABLE_STEP)
 public class Step {
+    @PrimaryKey(autoGenerate = true)
+    private Integer stepId;
     @SerializedName("recipeId")
     @Expose
     private Integer recipeId;
@@ -28,53 +30,31 @@ public class Step {
     @Expose
     private String thumbnailURL;
 
-    public Integer getRecipeId() {
-        return recipeId;
-    }
+    public Integer getStepId() { return stepId; }
 
-    public void setRecipeId(Integer recipeId) {
-        this.recipeId = recipeId;
-    }
+    public void setStepId(Integer ingredientId) { this.stepId = stepId; }
 
+    public Integer getRecipeId() { return recipeId; }
 
-    public Integer getId() {
-        return id;
-    }
+    public void setRecipeId(Integer recipeId) { this.recipeId = recipeId; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public Integer getId() { return id; }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
+    public String getShortDescription() { return shortDescription; }
 
-    public String getDescription() {
-        return description;
-    }
+    public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getDescription() { return description; }
 
-    public String getVideoURL() {
-        return videoURL;
-    }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
-    }
+    public String getVideoURL() { return videoURL; }
 
-    public String getThumbnailURL() {
-        return thumbnailURL;
-    }
+    public void setVideoURL(String videoURL) { this.videoURL = videoURL; }
 
-    public void setThumbnailURL(String thumbnailURL) {
-        this.thumbnailURL = thumbnailURL;
-    }
+    public String getThumbnailURL() { return thumbnailURL; }
 
+    public void setThumbnailURL(String thumbnailURL) { this.thumbnailURL = thumbnailURL; }
 }
