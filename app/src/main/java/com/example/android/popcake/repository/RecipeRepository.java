@@ -4,6 +4,10 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.android.popcake.Const;
+import com.example.android.popcake.database.IngredientDAO;
+import com.example.android.popcake.database.PopCakeRoomDatabase;
+import com.example.android.popcake.database.RecipeDAO;
+import com.example.android.popcake.database.StepDAO;
 import com.example.android.popcake.network.RecipeService;
 import com.google.gson.JsonArray;
 
@@ -17,8 +21,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeRepository {
     private RecipeService service;
+    private final IngredientDAO mIngredientDAO;
+    private final RecipeDAO mRecipeDAO;
+    private final StepDAO mStepDAO;
 
     public RecipeRepository(Application application) {
+        PopCakeRoomDatabase mPopCakeRoomDB;
+
+        // Init network
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
@@ -50,5 +60,11 @@ public class RecipeRepository {
 
             }
         });
+
+        // Init DB
+        mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(application);
+        mIngredientDAO = mPopCakeRoomDB.ingredientDAO();
+        mRecipeDAO = mPopCakeRoomDB.recipeDAO();
+        mStepDAO = mPopCakeRoomDB.stepDAO();
     }
 }
