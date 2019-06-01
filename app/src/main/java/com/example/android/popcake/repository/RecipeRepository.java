@@ -9,7 +9,10 @@ import com.example.android.popcake.database.IngredientDAO;
 import com.example.android.popcake.database.PopCakeRoomDatabase;
 import com.example.android.popcake.database.RecipeDAO;
 import com.example.android.popcake.database.StepDAO;
+import com.example.android.popcake.database.StepDAO_Impl;
+import com.example.android.popcake.model.Ingredient;
 import com.example.android.popcake.model.Recipe;
+import com.example.android.popcake.model.Step;
 import com.example.android.popcake.network.RecipeService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -63,9 +66,7 @@ public class RecipeRepository {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 JsonArray mResponse = response.body();
-                //JsonArray mResults = mResponse.getAsJsonArray();
-                // TODO: Do something with the response, save it to the database
-                Log.d(Const.APP_TAG, mResponse.toString());
+                //Log.d(Const.APP_TAG, mResponse.toString());
 
                 // Saving to DB
                 Type listType = new TypeToken<List<Recipe>>() {}.getType();
@@ -74,7 +75,10 @@ public class RecipeRepository {
                 for(int i = 0; i < mListRecipes.size(); i++) {
                     new insertRecipeAsyncTask(mRecipeDAO).execute(mListRecipes.get(i));
                 }
+
+                // TODO Also save the content from JSON to DB for Ingredients and Steps for each Recipe
             }
+
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
@@ -94,6 +98,30 @@ public class RecipeRepository {
         @Override
         protected Void doInBackground(Recipe... recipes) {
             mAsyncTaskDAO.insert(recipes[0]);
+            return null;
+        }
+    }
+
+    // Insert method for Ingredients
+    static class insertIngredientAsyncTask extends AsyncTask<Ingredient, Void, Void> {
+        private IngredientDAO mAsyncTaskDAO;
+        insertIngredientAsyncTask(IngredientDAO dao) { mAsyncTaskDAO = dao; }
+
+        @Override
+        protected Void doInBackground(Ingredient... ingredients) {
+            mAsyncTaskDAO.insert(ingredients[0]);
+            return null;
+        }
+    }
+
+    // Insert method for Steps
+    static class inserStepAsyncTask extends AsyncTask<Step, Void, Void> {
+        private StepDAO mAsyncTaskDAO;
+        inserStepAsyncTask(StepDAO dao) { mAsyncTaskDAO = dao; }
+
+        @Override
+        protected Void doInBackground(Step... steps) {
+            mAsyncTaskDAO.insert(steps[0]);
             return null;
         }
     }
