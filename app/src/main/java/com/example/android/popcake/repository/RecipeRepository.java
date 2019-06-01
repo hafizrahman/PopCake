@@ -72,8 +72,26 @@ public class RecipeRepository {
                 Type listType = new TypeToken<List<Recipe>>() {}.getType();
                 mListRecipes = new Gson().fromJson(mResponse, listType);
 
+                Recipe tempRecipe;
+                Ingredient tempIngredient;
+                Step tempStep;
+
                 for(int i = 0; i < mListRecipes.size(); i++) {
-                    new insertRecipeAsyncTask(mRecipeDAO).execute(mListRecipes.get(i));
+                    tempRecipe = mListRecipes.get(i);
+                    new insertRecipeAsyncTask(mRecipeDAO).execute(tempRecipe);
+                    // Insert Ingredients
+                    for(int j = 0; j < tempRecipe.getIngredients().size(); j++) {
+                        tempIngredient = tempRecipe.getIngredients().get(j);
+                        tempIngredient.setRecipeId(tempRecipe.getId());
+                        new insertIngredientAsyncTask(mIngredientDAO).execute(tempIngredient);
+                    }
+                    // Insert Steps
+                    for(int j = 0; j < tempRecipe.getSteps().size(); j++) {
+                        tempStep = tempRecipe.getSteps().get(j);
+                        tempStep.setRecipeId(tempRecipe.getId());
+                        new insertStepAsyncTask(mStepDAO).execute(tempStep);
+                    }
+
                 }
 
                 // TODO Also save the content from JSON to DB for Ingredients and Steps for each Recipe
@@ -115,9 +133,9 @@ public class RecipeRepository {
     }
 
     // Insert method for Steps
-    static class inserStepAsyncTask extends AsyncTask<Step, Void, Void> {
+    static class insertStepAsyncTask extends AsyncTask<Step, Void, Void> {
         private StepDAO mAsyncTaskDAO;
-        inserStepAsyncTask(StepDAO dao) { mAsyncTaskDAO = dao; }
+        insertStepAsyncTask(StepDAO dao) { mAsyncTaskDAO = dao; }
 
         @Override
         protected Void doInBackground(Step... steps) {
