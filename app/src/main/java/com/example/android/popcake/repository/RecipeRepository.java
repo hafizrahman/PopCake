@@ -1,6 +1,7 @@
 package com.example.android.popcake.repository;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.android.popcake.Const;
@@ -8,8 +9,14 @@ import com.example.android.popcake.database.IngredientDAO;
 import com.example.android.popcake.database.PopCakeRoomDatabase;
 import com.example.android.popcake.database.RecipeDAO;
 import com.example.android.popcake.database.StepDAO;
+import com.example.android.popcake.model.Recipe;
 import com.example.android.popcake.network.RecipeService;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,8 +32,16 @@ public class RecipeRepository {
     private final RecipeDAO mRecipeDAO;
     private final StepDAO mStepDAO;
 
+    private List<Recipe> mListRecipes;
+
     public RecipeRepository(Application application) {
         PopCakeRoomDatabase mPopCakeRoomDB;
+
+        // Init DB
+        mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(application);
+        mIngredientDAO = mPopCakeRoomDB.ingredientDAO();
+        mRecipeDAO = mPopCakeRoomDB.recipeDAO();
+        mStepDAO = mPopCakeRoomDB.stepDAO();
 
         // Init network
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -51,6 +66,14 @@ public class RecipeRepository {
                 //JsonArray mResults = mResponse.getAsJsonArray();
                 // TODO: Do something with the response, save it to the database
                 Log.d(Const.APP_TAG, mResponse.toString());
+
+                // Saving to DB
+                Type listType = new TypeToken<List<Recipe>>() {}.getType();
+                mListRecipes = new Gson().fromJson(mResponse, listType);
+
+                for(int i = 0; i < mListRecipes.size(); i++) {
+                    new insertRecipeAsyncTask(mRecipeDAO).execute(mListRecipes.get(i));
+                }
             }
 
             @Override
@@ -61,10 +84,17 @@ public class RecipeRepository {
             }
         });
 
-        // Init DB
-        mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(application);
-        mIngredientDAO = mPopCakeRoomDB.ingredientDAO();
-        mRecipeDAO = mPopCakeRoomDB.recipeDAO();
-        mStepDAO = mPopCakeRoomDB.stepDAO();
+    }
+
+    // Insert method for Recipe
+    static class insertRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
+        private RecipeDAO mAsyncTaskDAO;
+        insertRecipeAsyncTask(RecipeDAO dao) { mAsyncTaskDAO = dao; }
+
+        @Override
+        protected Void doInBackground(Recipe... recipes) {
+            mAsyncTaskDAO.insert(recipes[0]);
+            return null;
+        }
     }
 }
