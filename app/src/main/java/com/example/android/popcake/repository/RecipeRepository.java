@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.popcake.Const;
 import com.example.android.popcake.database.IngredientDAO;
@@ -144,6 +145,6 @@ public class RecipeRepository {
     // TODO
     // A method to return a LiveData of a List of Recipes
     public LiveData<List<Recipe>> getListRecipes() {
-        LiveData<List<Recipe>> mLiveDataListRecipes = mRecipeDAO.getRecipes();
+        return mRecipeDAO.getRecipes();
     }
 }
