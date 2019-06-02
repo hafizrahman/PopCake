@@ -4,12 +4,13 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.android.popcake.Const;
 import com.example.android.popcake.database.IngredientDAO;
 import com.example.android.popcake.database.PopCakeRoomDatabase;
 import com.example.android.popcake.database.RecipeDAO;
 import com.example.android.popcake.database.StepDAO;
-import com.example.android.popcake.database.StepDAO_Impl;
 import com.example.android.popcake.model.Ingredient;
 import com.example.android.popcake.model.Recipe;
 import com.example.android.popcake.model.Step;
@@ -94,7 +95,6 @@ public class RecipeRepository {
                 }
             }
 
-
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
                 Log.d(Const.APP_TAG, "Network fail.");
@@ -139,5 +139,11 @@ public class RecipeRepository {
             mAsyncTaskDAO.insert(steps[0]);
             return null;
         }
+    }
+
+    // TODO
+    // A method to return a LiveData of a List of Recipes
+    public LiveData<List<Recipe>> getListRecipes() {
+        LiveData<List<Recipe>> mLiveDataListRecipes = mRecipeDAO.getRecipes();
     }
 }
