@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.popcake.model.Recipe;
-import com.example.android.popcake.viewmodel.ViewModelRecipeList;
+import com.example.android.popcake.viewmodel.ViewModelRecipe;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class FragmentRecipe extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private MyRecipeRecyclerViewAdapter mRecipeRVAdapter;
-    private ViewModelRecipeList mRecipeListVM;
+    private ViewModelRecipe mRecipeListVM;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -64,7 +64,7 @@ public class FragmentRecipe extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        mRecipeListVM = ViewModelProviders.of(getActivity()).get(ViewModelRecipeList.class);
+        mRecipeListVM = ViewModelProviders.of(getActivity()).get(ViewModelRecipe.class);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

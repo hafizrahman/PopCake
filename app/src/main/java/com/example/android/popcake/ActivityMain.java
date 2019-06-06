@@ -1,5 +1,6 @@
 package com.example.android.popcake;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -19,5 +20,8 @@ public class ActivityMain extends AppCompatActivity implements FragmentRecipe.On
         // TODO Actually do something with the id information
         // Since we are now working on Phone mode,
         // I think here we will want to call another activity that has the Details Fragment in it.
+        Intent intent = new Intent(this, ActivityRecipeDetails.class);
+        intent.putExtra("PGK_RECIPE_ID", recipeId);
+        startActivity(intent);
     }
 }
