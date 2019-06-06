@@ -41,8 +41,8 @@ public class ActivityRecipeDetails extends AppCompatActivity {
     private String convertIngredientsListToString(List<Ingredient> ingredients) {
         String result = "";
         for(Ingredient ingredient : ingredients) {
-            result += ingredient.getQuantity().toString();
-            result += ingredient.getMeasure();
+            result += ingredient.getQuantity().toString() + " ";
+            result += ingredient.getMeasure() + " ";
             result += ingredient.getIngredient();
             result += "\n";
         }
