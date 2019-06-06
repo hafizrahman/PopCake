@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ActivityMain extends AppCompatActivity implements RecipeFragment.OnListFragmentInteractionListener {
+public class ActivityMain extends AppCompatActivity implements FragmentRecipe.OnListFragmentInteractionListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

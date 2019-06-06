@@ -26,7 +26,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class RecipeFragment extends Fragment {
+public class FragmentRecipe extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -39,13 +39,13 @@ public class RecipeFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public RecipeFragment() {
+    public FragmentRecipe() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static RecipeFragment newInstance(int columnCount) {
-        RecipeFragment fragment = new RecipeFragment();
+    public static FragmentRecipe newInstance(int columnCount) {
+        FragmentRecipe fragment = new FragmentRecipe();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);

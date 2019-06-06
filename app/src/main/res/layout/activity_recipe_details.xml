@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recipe_details_steps_fragment"
-        android:name="com.example.android.popcake.RecipeStepsFragment"
+        android:name="com.example.android.popcake.FragmentRecipeSteps"
         />
 </LinearLayout>

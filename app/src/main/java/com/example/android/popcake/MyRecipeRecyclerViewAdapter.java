@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.popcake.RecipeFragment.OnListFragmentInteractionListener;
+import com.example.android.popcake.FragmentRecipe.OnListFragmentInteractionListener;
 import com.example.android.popcake.model.Recipe;
 
 import java.util.List;
