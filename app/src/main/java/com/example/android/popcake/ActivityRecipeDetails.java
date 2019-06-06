@@ -2,21 +2,20 @@ package com.example.android.popcake;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.android.popcake.viewmodel.ViewModelRecipeList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
+import androidx.lifecycle.ViewModelProviders;
 
 public class ActivityRecipeDetails extends AppCompatActivity {
-
+    private ViewModelRecipeList mRecipeListVM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mRecipeListVM = ViewModelProviders.of(this).get(ViewModelRecipeList.class);
+
     }
 
 }
