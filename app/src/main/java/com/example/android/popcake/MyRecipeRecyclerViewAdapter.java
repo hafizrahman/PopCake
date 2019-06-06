@@ -8,22 +8,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.popcake.RecipeFragment.OnListFragmentInteractionListener;
-import com.example.android.popcake.dummy.DummyContent.DummyItem;
+import com.example.android.popcake.model.Recipe;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Recipe} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyRecipeRecyclerViewAdapter extends RecyclerView.Adapter<MyRecipeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private List<Recipe> mRecipes;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyRecipeRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyRecipeRecyclerViewAdapter(List<Recipe> items, OnListFragmentInteractionListener listener) {
+        mRecipes = items;
         mListener = listener;
     }
 
@@ -36,9 +36,8 @@ public class MyRecipeRecyclerViewAdapter extends RecyclerView.Adapter<MyRecipeRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = mRecipes.get(position);
+        holder.mRecipeNameView.setText(mRecipes.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,25 +53,25 @@ public class MyRecipeRecyclerViewAdapter extends RecyclerView.Adapter<MyRecipeRe
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mRecipes.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        final View mView;
+        final TextView mRecipeNameView;
+        Recipe mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mRecipeNameView = view.findViewById(R.id.fragment_recipe_name);
         }
+    }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
+    // This will get called by Observer of the LiveData that's created on the MainActivity
+    // in order to fill and update the adapter's data, if a change is observed.
+    public void setRecipes(List<Recipe> recipes){
+        mRecipes = recipes;
+        this.notifyDataSetChanged();
     }
 }

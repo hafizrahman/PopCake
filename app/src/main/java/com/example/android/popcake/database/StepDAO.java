@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.android.popcake.model.Ingredient;
 import com.example.android.popcake.model.Step;
 
 import java.util.List;
@@ -19,5 +18,5 @@ public interface StepDAO {
 
     // Get all steps for a particular recipe
     @Query("SELECT * from tb_step WHERE recipeId = :recipeId")
-    LiveData<List<Ingredient>> getStepsForRecipe(Integer recipeId);
+    LiveData<List<Step>> getStepsForRecipe(Integer recipeId);
 }
