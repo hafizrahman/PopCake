@@ -15,10 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.popcake.dummy.DummyContent.DummyItem;
 import com.example.android.popcake.model.Recipe;
 import com.example.android.popcake.viewmodel.RecipeListViewModel;
 
+import java.nio.channels.Selector;
 import java.util.List;
 
 /**
@@ -35,6 +35,7 @@ public class RecipeFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private MyRecipeRecyclerViewAdapter mRecipeRVAdapter;
+    private RecipeListViewModel mRecipeListVM;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -60,12 +61,13 @@ public class RecipeFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        final RecipeListViewModel mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
+        //final RecipeListViewModel mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -121,8 +123,9 @@ public class RecipeFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Recipe recipe);
+        void onListFragmentInteraction(int recipeId);
     }
 }
