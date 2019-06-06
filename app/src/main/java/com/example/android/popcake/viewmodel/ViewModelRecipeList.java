@@ -10,10 +10,10 @@ import com.example.android.popcake.repository.RecipeRepository;
 
 import java.util.List;
 
-public class RecipeListViewModel extends AndroidViewModel {
+public class ViewModelRecipeList extends AndroidViewModel {
     private RecipeRepository mRepository;
     private LiveData<List<Recipe>> mRecipeList;
-    public RecipeListViewModel(Application application) {
+    public ViewModelRecipeList(Application application) {
         super(application);
         // This will create the repository, in which it will also do a network call.
         mRepository = new RecipeRepository(application);
