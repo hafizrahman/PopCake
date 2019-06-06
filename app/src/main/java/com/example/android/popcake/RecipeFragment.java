@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,20 +62,26 @@ public class RecipeFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        //final RecipeListViewModel mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
+        mRecipeListVM = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(mLayoutManager);
+
+                // Adding divider line between each row.
+                // See https://stackoverflow.com/a/27037230
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        mLayoutManager.getOrientation());
+                recyclerView.addItemDecoration(dividerItemDecoration);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
