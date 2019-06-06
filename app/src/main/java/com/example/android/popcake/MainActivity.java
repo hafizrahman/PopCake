@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity implements RecipeFragment.On
     @Override
     public void onListFragmentInteraction(int recipeId) {
         Log.d(Const.APP_TAG, "HEYA, selected item ID is " + recipeId);
-
-
+        // TODO Actually do something with the id information
+        // Since we are now working on Phone mode,
+        // I think here we will want to call another activity that has the Details Fragment in it.
     }
 }

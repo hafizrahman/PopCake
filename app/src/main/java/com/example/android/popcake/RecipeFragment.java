@@ -1,7 +1,6 @@
 package com.example.android.popcake;
 
 import android.content.Context;
-import android.graphics.Movie;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import com.example.android.popcake.model.Recipe;
 import com.example.android.popcake.viewmodel.RecipeListViewModel;
 
-import java.nio.channels.Selector;
 import java.util.List;
 
 /**
@@ -29,7 +27,6 @@ import java.util.List;
  * interface.
  */
 public class RecipeFragment extends Fragment {
-
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
