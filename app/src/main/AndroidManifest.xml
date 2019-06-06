@@ -12,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RecipeDetailsActivity"
+            android:name=".ActivityRecipeDetails"
             android:label="@string/title_activity_recipe_details"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ActivityMain"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.popcake.MainActivity" />
+                android:value="com.example.android.popcake.ActivityMain" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

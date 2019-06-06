@@ -73,7 +73,7 @@ public class MyRecipeRecyclerViewAdapter extends RecyclerView.Adapter<MyRecipeRe
         }
     }
 
-    // This will get called by Observer of the LiveData that's created on the MainActivity
+    // This will get called by Observer of the LiveData that's created on the ActivityMain
     // in order to fill and update the adapter's data, if a change is observed.
     public void setRecipes(List<Recipe> recipes){
         mRecipes = recipes;
