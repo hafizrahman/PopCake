@@ -77,7 +77,7 @@ public class FragmentRecipeSteps extends Fragment {
             }
 
             mRecipeRVAdapter = new RVAdapterRecipeSteps(
-                    mRecipeListVM.getRecipeStepsList().getValue(), // TODO Create this method
+                    mRecipeListVM.getRecipeStepList(1).getValue(), // TODO Create this method
                     mListener);
             recyclerView.setAdapter(mRecipeRVAdapter);
 

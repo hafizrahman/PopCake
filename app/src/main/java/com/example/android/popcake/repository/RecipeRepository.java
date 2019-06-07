@@ -150,4 +150,9 @@ public class RecipeRepository {
     public LiveData<List<Ingredient>> getListIngredients(int recipeId) {
         return mIngredientDAO.getIngredientsForRecipe(recipeId);
     }
+
+    // Method to return a LiveData of a List of Steps of a particular Recipe
+    public LiveData<List<Step>> getListSteps(int recipeId) {
+        return mStepDAO.getStepsForRecipe(recipeId);
+    }
 }
