@@ -32,7 +32,7 @@ public class FragmentRecipe extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private MyRecipeRecyclerViewAdapter mRecipeRVAdapter;
+    private RVAdapterRecipes mRecipeRVAdapter;
     private ViewModelRecipe mRecipeListVM;
 
     /**
@@ -83,7 +83,7 @@ public class FragmentRecipe extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            mRecipeRVAdapter = new MyRecipeRecyclerViewAdapter(
+            mRecipeRVAdapter = new RVAdapterRecipes(
                     mRecipeListVM.getRecipeList().getValue(),
                     mListener);
             recyclerView.setAdapter(mRecipeRVAdapter);
