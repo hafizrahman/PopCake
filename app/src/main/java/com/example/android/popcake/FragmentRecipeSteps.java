@@ -1,6 +1,7 @@
 package com.example.android.popcake;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,16 +77,22 @@ public class FragmentRecipeSteps extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            // Get recipeID from SharedPreference
+            // Save recipeId in SharedPreference so fragments can grab this info
+            SharedPreferences mSharedPreferences = getActivity().getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
+            int mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_RECIPE_ID, 1);
+
+            // Create then set the adapter
             mRecipeRVAdapter = new RVAdapterRecipeSteps(
-                    mRecipeListVM.getRecipeStepList(1).getValue(), // TODO Create this method
+                    mRecipeListVM.getRecipeStepList(mRecipeId).getValue(),
                     mListener);
             recyclerView.setAdapter(mRecipeRVAdapter);
 
             // Observer for Recipes LiveData
-            mRecipeListVM.getRecipeList().observe(this, new Observer<List<Step>>() {
+            mRecipeListVM.getRecipeStepList(mRecipeId).observe(this, new Observer<List<Step>>() {
                 @Override
                 public void onChanged(List<Step> steps) {
-                    mRecipeRVAdapter.setSteps(steps); // TODO Create this method
+                    mRecipeRVAdapter.setSteps(steps);
                 }
             });
         }
