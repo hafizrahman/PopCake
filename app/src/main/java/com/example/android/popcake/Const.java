@@ -8,4 +8,7 @@ public class Const {
     public static final String DB_TABLE_INGREDIENT      = "tb_ingredient";
     public static final String DB_TABLE_RECIPE          = "tb_recipe";
     public static final String DB_TABLE_STEP            = "tb_step";
+
+    public static final String PREFS_FILE               = "com.example.android.popcake.prefs";
+    public static final String PREFS_CURRENT_RECIPE_ID  = "PREF_CURRENT_RECIPE_ID";
 }
