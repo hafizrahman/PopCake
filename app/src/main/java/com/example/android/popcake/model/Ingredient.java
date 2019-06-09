@@ -1,5 +1,6 @@
 package com.example.android.popcake.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,8 +10,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Const.DB_TABLE_INGREDIENT)
 public class Ingredient {
-    @PrimaryKey(autoGenerate = true)
-    private Integer ingredientId;
+    @PrimaryKey
+    private String ingredientId;
     @SerializedName("recipeId")
     @Expose
     private Integer recipeId;
@@ -24,9 +25,9 @@ public class Ingredient {
     @Expose
     private String ingredient;
 
-    public Integer getIngredientId() { return ingredientId; }
+    public String getIngredientId() { return ingredientId; }
 
-    public void setIngredientId(Integer ingredientId) { this.ingredientId = ingredientId; }
+    public void setIngredientId(String ingredientId) { this.ingredientId = ingredientId; }
 
     public Integer getRecipeId() { return recipeId; }
 

@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Const.DB_TABLE_STEP)
 public class Step {
-    @PrimaryKey(autoGenerate = true)
-    private Integer stepId;
+    @PrimaryKey
+    private String stepId;
     @SerializedName("recipeId")
     @Expose
     private Integer recipeId;
@@ -30,9 +30,9 @@ public class Step {
     @Expose
     private String thumbnailURL;
 
-    public Integer getStepId() { return stepId; }
+    public String getStepId() { return stepId; }
 
-    public void setStepId(Integer ingredientId) { this.stepId = stepId; }
+    public void setStepId(String ingredientId) { this.stepId = stepId; }
 
     public Integer getRecipeId() { return recipeId; }
 
