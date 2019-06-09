@@ -84,15 +84,21 @@ public class RecipeRepository {
                     for(int j = 0; j < tempRecipe.getIngredients().size(); j++) {
                         tempIngredient = tempRecipe.getIngredients().get(j);
                         tempIngredient.setRecipeId(tempRecipe.getId());
+                        tempIngredient.setIngredientId(generateUniqueID(i, j));
                         new insertIngredientAsyncTask(mIngredientDAO).execute(tempIngredient);
                     }
                     // Insert Steps
                     for(int j = 0; j < tempRecipe.getSteps().size(); j++) {
                         tempStep = tempRecipe.getSteps().get(j);
                         tempStep.setRecipeId(tempRecipe.getId());
+                        tempStep.setStepId(generateUniqueID(i, tempRecipe.getId()));
                         new insertStepAsyncTask(mStepDAO).execute(tempStep);
                     }
                 }
+            }
+
+            private String generateUniqueID(int recipeId, int itemId) {
+                return recipeId + ":" + itemId;
             }
 
             @Override
