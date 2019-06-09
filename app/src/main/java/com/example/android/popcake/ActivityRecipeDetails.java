@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.android.popcake.model.Ingredient;
+import com.example.android.popcake.model.Step;
 import com.example.android.popcake.viewmodel.ViewModelRecipe;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import java.util.List;
 public class ActivityRecipeDetails extends AppCompatActivity  implements FragmentRecipeSteps.OnListFragmentInteractionListener {
     private ViewModelRecipe mRecipeListVM;
     TextView tvRecipeDetailsIngredient;
+    List<Step> mCurrentStepsData;
+    int mRecipeId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +32,11 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         // Get recipeID from SharedPreference
         // Save recipeId in SharedPreference so fragments can grab this info
         SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
-        int mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_RECIPE_ID, 1);
+        mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_RECIPE_ID, 1);
 
         mRecipeListVM = ViewModelProviders.of(this).get(ViewModelRecipe.class);
 
-        // TODO: Get LiveData of the list of Ingredients based on recipeId
-        // TODO: Observe the LiveData above
+        // TODO: Get LiveData of the list of Ingredients based on recipeId and Observe the LiveData
         mRecipeListVM.getRecipeIngredientList(mRecipeId).observe(this, new Observer<List<Ingredient>>() {
             @Override
             public void onChanged(List<Ingredient> ingredients) {
@@ -43,6 +45,13 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
                 //Log.d(Const.APP_TAG, ingredientsText);
                 //Log.d(Const.APP_TAG, "------");
                 tvRecipeDetailsIngredient.setText(ingredientsText);
+            }
+        });
+
+        mRecipeListVM.getRecipeStepList(mRecipeId).observe(this, new Observer<List<Step>>() {
+            @Override
+            public void onChanged(List<Step> steps) {
+                mCurrentStepsData = steps;
             }
         });
     }
@@ -72,14 +81,18 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         }
         */
 
-        Log.d(Const.APP_TAG, "HEYA, selected Step ID is " + stepId);
+        Log.d(Const.APP_TAG, "HEYA, selected Step ID is " + stepId + " and Recipe Id is " + mRecipeId);
         // TODO: Since we are now working on Phone mode,
         // we will want to call another activity that has the Step Details Fragment in it.
         // The tricky part here is that:
         // 1) we have the recipeId, but no Steps data, so
         // 2) we have to somehow pull the Steps data
-        // 3) We need to bundle that data and send it to the next activity
-        // 4)
+        // 3) We need to bundle that data and send it to the next activity. Using Serializable
+        //    seems like a good idea https://stackoverflow.com/a/31972180
+        // We also have a VM instance in this class already, so we can use that to pull the data
+        // I did the piece of code already above (the `mCurrentStepsData = steps;` line), so
+        // That probably solves all the problem.
+
 
        /*
         Intent intent = new Intent(this, ActivityRecipeDetails.class);
