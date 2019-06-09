@@ -92,6 +92,7 @@ public class RecipeRepository {
                         tempStep = tempRecipe.getSteps().get(j);
                         tempStep.setRecipeId(tempRecipe.getId());
                         tempStep.setStepId(generateUniqueID(i, tempRecipe.getId()));
+                        //Log.d(Const.APP_TAG, "ZZZ steps" + generateUniqueID(i, j));
                         new insertStepAsyncTask(mStepDAO).execute(tempStep);
                     }
                 }
@@ -154,6 +155,7 @@ public class RecipeRepository {
 
     // Method to return a LiveData of a List of Ingredient of a particular Recipe
     public LiveData<List<Ingredient>> getListIngredients(int recipeId) {
+        Log.d(Const.APP_TAG, "ZZZ calling ingredients for recipe ID " + recipeId);
         return mIngredientDAO.getIngredientsForRecipe(recipeId);
     }
 

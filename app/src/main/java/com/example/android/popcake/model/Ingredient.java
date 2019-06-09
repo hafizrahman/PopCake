@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = Const.DB_TABLE_INGREDIENT)
 public class Ingredient {
     @PrimaryKey
+    @NonNull
     private String ingredientId;
     @SerializedName("recipeId")
     @Expose

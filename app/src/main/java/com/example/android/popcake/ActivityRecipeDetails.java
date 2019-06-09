@@ -38,27 +38,23 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         mRecipeListVM.getRecipeIngredientList(mRecipeId).observe(this, new Observer<List<Ingredient>>() {
             @Override
             public void onChanged(List<Ingredient> ingredients) {
-                Log.d(Const.APP_TAG, "ZZZ Y List size is " + ingredients.size());
+                //Log.d(Const.APP_TAG, "ZZZ Y List size is " + ingredients.size());
                 String ingredientsText = convertIngredientsListToString(ingredients);
                 //Log.d(Const.APP_TAG, ingredientsText);
                 //Log.d(Const.APP_TAG, "------");
-                tvRecipeDetailsIngredient.setText("wut");
+                tvRecipeDetailsIngredient.setText(ingredientsText);
             }
         });
     }
 
     private String convertIngredientsListToString(List<Ingredient> ingredients) {
         String result = "";
-        Log.d(Const.APP_TAG, "ZZZ List size is " + ingredients.size());
         for(Ingredient ingredient : ingredients) {
             result += ingredient.getQuantity().toString() + " ";
             result += ingredient.getMeasure() + " ";
             result += ingredient.getIngredient();
             result += "\n";
         }
-        Log.d(Const.APP_TAG, result);
-        Log.d(Const.APP_TAG, "##################################");
-
 
         return result;
     }

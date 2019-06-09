@@ -1,5 +1,6 @@
 package com.example.android.popcake.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = Const.DB_TABLE_STEP)
 public class Step {
     @PrimaryKey
+    @NonNull
     private String stepId;
     @SerializedName("recipeId")
     @Expose
@@ -32,7 +34,7 @@ public class Step {
 
     public String getStepId() { return stepId; }
 
-    public void setStepId(String ingredientId) { this.stepId = stepId; }
+    public void setStepId(String stepId) { this.stepId = stepId; }
 
     public Integer getRecipeId() { return recipeId; }
 
