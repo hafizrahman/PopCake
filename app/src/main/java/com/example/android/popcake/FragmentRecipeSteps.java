@@ -129,6 +129,6 @@ public class FragmentRecipeSteps extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(int recipeId);
+        void onListFragmentInteraction(int stepId);
     }
 }

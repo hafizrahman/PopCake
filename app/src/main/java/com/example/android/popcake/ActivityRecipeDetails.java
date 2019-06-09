@@ -60,19 +60,27 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
     }
 
     @Override
-    public void onListFragmentInteraction(int recipeId) {
+    public void onListFragmentInteraction(int stepId) {
         // Save recipeId in SharedPreference so fragments can grab this info
+        /*
         SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor mEditor = mSharedPreferences.edit();
         int mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_STEP_ID, 0);
         if (mRecipeId == 0) {
-            mEditor.putInt(Const.PREFS_CURRENT_STEP_ID, recipeId);
+            mEditor.putInt(Const.PREFS_CURRENT_STEP_ID, stepId);
             mEditor.apply(); // asynchronous, but should be OK as it's a small data.
         }
+        */
 
-        Log.d(Const.APP_TAG, "HEYA, selected Recipe ID is " + recipeId);
+        Log.d(Const.APP_TAG, "HEYA, selected Step ID is " + stepId);
         // TODO: Since we are now working on Phone mode,
         // we will want to call another activity that has the Step Details Fragment in it.
+        // The tricky part here is that:
+        // 1) we have the recipeId, but no Steps data, so
+        // 2) we have to somehow pull the Steps data
+        // 3) We need to bundle that data and send it to the next activity
+        // 4)
+
        /*
         Intent intent = new Intent(this, ActivityRecipeDetails.class);
         intent.putExtra("PGK_RECIPE_ID", recipeId);
