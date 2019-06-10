@@ -28,7 +28,7 @@
                 android:value="com.example.android.popcake.ActivityMain" />
         </activity>
         <activity
-            android:name=".ActivityStepDetails"
+            android:name=".ActivityStepsDetails"
             android:label="@string/title_activity_step_details"
             android:parentActivityName=".ActivityRecipeDetails">
             <meta-data

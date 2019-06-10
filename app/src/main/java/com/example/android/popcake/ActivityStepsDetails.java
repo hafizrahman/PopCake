@@ -26,7 +26,7 @@ public class ActivityStepsDetails extends AppCompatActivity {
         setContentView(R.layout.activity_steps_details);
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.vp_activity_steps_details);
+        mPager = findViewById(R.id.vp_activity_steps_details);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
     }
