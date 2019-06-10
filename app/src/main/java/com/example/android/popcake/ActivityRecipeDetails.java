@@ -93,7 +93,6 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         // I did the piece of code already above (the `mCurrentStepsData = steps;` line), so
         // That probably solves all the problem.
 
-
        /*
         Intent intent = new Intent(this, ActivityRecipeDetails.class);
         intent.putExtra("PGK_RECIPE_ID", recipeId);

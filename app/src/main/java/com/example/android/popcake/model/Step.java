@@ -1,5 +1,8 @@
 package com.example.android.popcake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,7 +12,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Const.DB_TABLE_STEP)
-public class Step {
+public class Step implements Parcelable {
     @PrimaryKey
     @NonNull
     private String stepId;
@@ -59,4 +62,53 @@ public class Step {
     public String getThumbnailURL() { return thumbnailURL; }
 
     public void setThumbnailURL(String thumbnailURL) { this.thumbnailURL = thumbnailURL; }
+
+    protected Step(Parcel in) {
+        stepId = in.readString();
+        recipeId = in.readByte() == 0x00 ? null : in.readInt();
+        id = in.readByte() == 0x00 ? null : in.readInt();
+        shortDescription = in.readString();
+        description = in.readString();
+        videoURL = in.readString();
+        thumbnailURL = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(stepId);
+        if (recipeId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(recipeId);
+        }
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(id);
+        }
+        dest.writeString(shortDescription);
+        dest.writeString(description);
+        dest.writeString(videoURL);
+        dest.writeString(thumbnailURL);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
+        @Override
+        public Step createFromParcel(Parcel in) {
+            return new Step(in);
+        }
+
+        @Override
+        public Step[] newArray(int size) {
+            return new Step[size];
+        }
+    };
 }
