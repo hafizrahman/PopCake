@@ -35,6 +35,15 @@ public class Step implements Parcelable {
     @Expose
     private String thumbnailURL;
 
+    // Empty generator
+    // Just used to prevent this error:
+    // error: Entities and Pojos must have a usable public constructor. You can have an empty
+    //
+    // constructor or a constructor whose parameters match the fields (by name and type).
+    public Step() {
+    }
+
+
     public String getStepId() { return stepId; }
 
     public void setStepId(String stepId) { this.stepId = stepId; }
