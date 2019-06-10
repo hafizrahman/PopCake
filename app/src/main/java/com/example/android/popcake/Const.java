@@ -12,4 +12,5 @@ public class Const {
     public static final String PREFS_FILE               = "com.example.android.popcake.prefs";
     public static final String PREFS_CURRENT_RECIPE_ID  = "PREF_CURRENT_RECIPE_ID";
     public static final String PREFS_CURRENT_STEP_ID    = "PREF_CURRENT_STEP_ID";
+    public static final String PACKAGE_STEP             = "PKG_STEP";
 }

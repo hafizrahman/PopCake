@@ -1,0 +1,20 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- TODO: need media player here -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/step_details_instruction"
+            android:padding="16dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <!-- TODO: need nav button here -->
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

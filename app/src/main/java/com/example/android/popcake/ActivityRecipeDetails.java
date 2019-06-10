@@ -93,9 +93,11 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         // I did the piece of code already above (the `mCurrentStepsData = steps;` line), so
         // That probably solves all the problem.
 
+        // Code below is what needs to be run once the Step Details activity is created.
        /*
-        Intent intent = new Intent(this, ActivityRecipeDetails.class);
-        intent.putExtra("PGK_RECIPE_ID", recipeId);
+        Step currentStep = mCurrentStepsData.get(stepId);
+        Intent intent = new Intent(this, ActivityStepDetails.class);
+        intent.putExtra(Const.PACKAGE_STEP, currentStep);
         startActivity(intent);
         */
     }
