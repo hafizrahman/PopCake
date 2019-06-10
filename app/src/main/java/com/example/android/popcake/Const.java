@@ -13,4 +13,5 @@ public class Const {
     public static final String PREFS_CURRENT_RECIPE_ID  = "PREF_CURRENT_RECIPE_ID";
     public static final String PREFS_CURRENT_STEP_ID    = "PREF_CURRENT_STEP_ID";
     public static final String PACKAGE_STEP             = "PKG_STEP";
+    public static final String SAMPLE_VIDEO_URL         = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
 }
