@@ -11,15 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ActivityRecipeDetails"
-            android:label="@string/title_activity_recipe_details"
-            android:parentActivityName=".ActivityMain"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.popcake.ActivityMain" />
-        </activity>
         <activity android:name=".ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +18,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityRecipeDetails"
+            android:label="@string/title_activity_recipe_details"
+            android:parentActivityName=".ActivityMain">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.popcake.ActivityMain" />
+        </activity>
+        <activity
+            android:name=".ActivityStepDetails"
+            android:label="@string/title_activity_step_details"
+            android:parentActivityName=".ActivityRecipeDetails">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.popcake.ActivityRecipeDetails" />
         </activity>
     </application>
 
