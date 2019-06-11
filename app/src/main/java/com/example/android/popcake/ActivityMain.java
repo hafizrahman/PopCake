@@ -32,7 +32,6 @@ public class ActivityMain extends AppCompatActivity implements FragmentRecipe.On
         // Since we are now working on Phone mode,
         // I think here we will want to call another activity that has the Details Fragment in it.
         Intent intent = new Intent(this, ActivityRecipeDetails.class);
-        intent.putExtra("PGK_RECIPE_ID", recipeId);
         startActivity(intent);
     }
 }

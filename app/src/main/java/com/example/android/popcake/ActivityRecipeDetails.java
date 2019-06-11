@@ -88,6 +88,7 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
         //Intent intent = new Intent(this, ActivityStepDetails.class);
         //intent.putExtra(Const.PACKAGE_STEP, currentStep);
         Intent intent = new Intent(this, ActivityStepsDetails.class);
+        intent.putExtra(Const.PACKAGE_STEP_NUMBER, stepId);
         startActivity(intent);
     }
 

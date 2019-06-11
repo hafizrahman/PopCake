@@ -1,8 +1,10 @@
 package com.example.android.popcake;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -30,6 +32,7 @@ public class ActivityStepsDetails extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
     private ViewModelRecipe mRecipeListVM;
     int mRecipeId;
+    int currentStepNumber;
     List<Step> mListSteps;
 
     @Override
@@ -37,10 +40,18 @@ public class ActivityStepsDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps_details);
 
+        Intent i = getIntent();
+        currentStepNumber = i.getIntExtra(Const.PACKAGE_STEP_NUMBER, 1);
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.vp_activity_steps_details);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+        // Make the starting position of the viewpager the currently selected step
+        Log.d(Const.APP_TAG, "ZZZZZ WHAAT" + currentStepNumber);
+        mPager.setCurrentItem(currentStepNumber);
+
 
         // Get recipeID from SharedPreference
         SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
