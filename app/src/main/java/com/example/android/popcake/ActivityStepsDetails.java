@@ -54,7 +54,9 @@ public class ActivityStepsDetails extends AppCompatActivity {
 
         @Override
         public FragmentRecipeStepDetails getItem(int position) {
-            return new FragmentRecipeStepDetails();
+            //return new FragmentRecipeStepDetails();
+            return FragmentRecipeStepDetails.newInstance("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdc33_-intro-brownies/-intro-brownies.mp4",
+                    "2. Melt the butter and bittersweet chocolate together in a microwave or a double boiler. If microwaving, heat for 30 seconds at a time, removing bowl and stirring ingredients in between.");
         }
 
         @Override

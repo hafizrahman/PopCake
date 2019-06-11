@@ -14,4 +14,10 @@ public class Const {
     public static final String PREFS_CURRENT_STEP_ID    = "PREF_CURRENT_STEP_ID";
     public static final String PACKAGE_STEP             = "PKG_STEP";
     public static final String SAMPLE_VIDEO_URL         = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4";
+
+    public static final String KEY_STEP_VIDEO_URL       = "BUNDLE_KEY_STEP_VIDEO_URL";
+    public static final String KEY_STEP_DESCRIPTION     = "BUNDLE_KEY_STEP_DESCRIPTION";
+
+
+
 }
