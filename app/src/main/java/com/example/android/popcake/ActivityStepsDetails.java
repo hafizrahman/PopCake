@@ -50,8 +50,6 @@ public class ActivityStepsDetails extends AppCompatActivity {
 
         // Make the starting position of the viewpager the currently selected step
         Log.d(Const.APP_TAG, "ZZZZZ WHAAT" + currentStepNumber);
-        mPager.setCurrentItem(currentStepNumber);
-
 
         // Get recipeID from SharedPreference
         SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
@@ -64,6 +62,7 @@ public class ActivityStepsDetails extends AppCompatActivity {
             public void onChanged(List<Step> steps) {
                 mListSteps = steps;
                 mPagerAdapter.notifyDataSetChanged();
+                mPager.setCurrentItem(currentStepNumber);
             }
         });
     }
