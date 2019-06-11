@@ -70,17 +70,6 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
 
     @Override
     public void onListFragmentInteraction(int stepId) {
-        // Save recipeId in SharedPreference so fragments can grab this info
-        /*
-        SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
-        int mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_STEP_ID, 0);
-        if (mRecipeId == 0) {
-            mEditor.putInt(Const.PREFS_CURRENT_STEP_ID, stepId);
-            mEditor.apply(); // asynchronous, but should be OK as it's a small data.
-        }
-        */
-
         Log.d(Const.APP_TAG, "HEYA, selected Step ID is " + stepId + " and Recipe Id is " + mRecipeId);
         // TODO: Since we are now working on Phone mode,
         // we will want to call another activity that has the Step Details Fragment in it.
@@ -97,8 +86,8 @@ public class ActivityRecipeDetails extends AppCompatActivity  implements Fragmen
 
         Step currentStep = mCurrentStepsData.get(stepId);
         //Intent intent = new Intent(this, ActivityStepDetails.class);
+        //intent.putExtra(Const.PACKAGE_STEP, currentStep);
         Intent intent = new Intent(this, ActivityStepsDetails.class);
-        intent.putExtra(Const.PACKAGE_STEP, currentStep);
         startActivity(intent);
     }
 

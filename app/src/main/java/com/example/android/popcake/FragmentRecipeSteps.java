@@ -78,7 +78,6 @@ public class FragmentRecipeSteps extends Fragment {
             }
 
             // Get recipeID from SharedPreference
-            // Save recipeId in SharedPreference so fragments can grab this info
             SharedPreferences mSharedPreferences = getActivity().getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
             int mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_RECIPE_ID, 1);
 

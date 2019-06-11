@@ -1,12 +1,21 @@
 package com.example.android.popcake;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.android.popcake.model.Step;
+import com.example.android.popcake.viewmodel.ViewModelRecipe;
+
+import java.util.List;
 
 public class ActivityStepsDetails extends AppCompatActivity {
     /**
@@ -19,6 +28,9 @@ public class ActivityStepsDetails extends AppCompatActivity {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
+    private ViewModelRecipe mRecipeListVM;
+    int mRecipeId;
+    List<Step> mListSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +41,20 @@ public class ActivityStepsDetails extends AppCompatActivity {
         mPager = findViewById(R.id.vp_activity_steps_details);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+        // Get recipeID from SharedPreference
+        SharedPreferences mSharedPreferences = getSharedPreferences(Const.PREFS_FILE, Context.MODE_PRIVATE);
+        mRecipeId = mSharedPreferences.getInt(Const.PREFS_CURRENT_RECIPE_ID, 1);
+
+        // Observer for Recipes LiveData
+        mRecipeListVM = ViewModelProviders.of(this).get(ViewModelRecipe.class);
+        mRecipeListVM.getRecipeStepList(mRecipeId).observe(this, new Observer<List<Step>>() {
+            @Override
+            public void onChanged(List<Step> steps) {
+                mListSteps = steps;
+                mPagerAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -54,14 +80,20 @@ public class ActivityStepsDetails extends AppCompatActivity {
 
         @Override
         public FragmentRecipeStepDetails getItem(int position) {
-            //return new FragmentRecipeStepDetails();
-            return FragmentRecipeStepDetails.newInstance("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdc33_-intro-brownies/-intro-brownies.mp4",
-                    "2. Melt the butter and bittersweet chocolate together in a microwave or a double boiler. If microwaving, heat for 30 seconds at a time, removing bowl and stirring ingredients in between.");
+            Step currentStep = mListSteps.get(position);
+            return FragmentRecipeStepDetails.newInstance(
+                    currentStep.getVideoURL(),
+                    currentStep.getDescription());
         }
 
         @Override
         public int getCount() {
-            return 5;
+            if (mListSteps == null) {
+                return 0;
+            }
+            else {
+                return mListSteps.size();
+            }
         }
     }
 }

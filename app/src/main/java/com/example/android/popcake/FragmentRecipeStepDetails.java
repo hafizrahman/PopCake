@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.android.popcake.model.Step;
+import com.example.android.popcake.viewmodel.ViewModelRecipe;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -27,10 +31,13 @@ import java.util.List;
 public class FragmentRecipeStepDetails extends Fragment {
     String videoUrl;
     String stepDescription;
+    int mRecipeId;
+    List<Step> mListSteps;
 
     TextView mStepsDescription;
     private SimpleExoPlayer mPlayer;
     private PlayerView mPlayerView;
+    Boolean videoExists;
 
     private long playbackPosition;
     private int currentWindow;
@@ -43,16 +50,25 @@ public class FragmentRecipeStepDetails extends Fragment {
             videoUrl = getArguments().getString(Const.KEY_STEP_VIDEO_URL);
             stepDescription = getArguments().getString(Const.KEY_STEP_DESCRIPTION);
         }
+        if(videoUrl != null) {
+            videoExists = true;
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_recipe_step_details, container, false);
+
         mStepsDescription = rootView.findViewById(R.id.step_details_instruction);
         mPlayerView = rootView.findViewById(R.id.step_details_video);
+        // Hide player if there's no proper video URL
+        if(! videoExists) {
+            mPlayerView.setVisibility(View.GONE);
+        }
 
         mStepsDescription.setText(stepDescription);
+
         return rootView;
     }
 
@@ -70,7 +86,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
+        if (videoExists && Util.SDK_INT > 23) {
             initializePlayer();
         }
     }
@@ -79,7 +95,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     public void onResume() {
         super.onResume();
         hideSystemUi();
-        if ((Util.SDK_INT <= 23 || mPlayer == null)) {
+        if (videoExists && (Util.SDK_INT <= 23 || mPlayer == null)) {
             initializePlayer();
         }
     }
@@ -87,7 +103,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (Util.SDK_INT <= 23) {
+        if (videoExists && Util.SDK_INT <= 23) {
             releasePlayer();
         }
     }
@@ -95,7 +111,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (Util.SDK_INT > 23) {
+        if (videoExists && Util.SDK_INT > 23) {
             releasePlayer();
         }
     }
