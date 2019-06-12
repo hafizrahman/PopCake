@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     private PlayerView mPlayerView;
     Button mPreviousButton;
     Button mNextButton;
-    Boolean videoExists;
+    Boolean videoExists = true;
 
     private long playbackPosition;
     private int currentWindow;
@@ -70,9 +71,6 @@ public class FragmentRecipeStepDetails extends Fragment {
             hideNextButton = getArguments().getBoolean(Const.KEY_STEP_HIDE_NEXT);
             hidePreviousButton = getArguments().getBoolean(Const.KEY_STEP_HIDE_PREV);
         }
-        if(videoUrl != null) {
-            videoExists = true;
-        }
     }
 
     @Override
@@ -82,10 +80,7 @@ public class FragmentRecipeStepDetails extends Fragment {
 
         mStepsDescription = rootView.findViewById(R.id.step_details_instruction);
         mPlayerView = rootView.findViewById(R.id.step_details_video);
-        // Hide player if there's no proper video URL
-        if(! videoExists) {
-            mPlayerView.setVisibility(View.GONE);
-        }
+
         mStepsDescription.setText(stepDescription);
         mNextButton = rootView.findViewById(R.id.btn_step_details_next);
         mPreviousButton = rootView.findViewById(R.id.btn_step_details_prev);
@@ -114,6 +109,11 @@ public class FragmentRecipeStepDetails extends Fragment {
             mNextButton.setVisibility(View.GONE);
         }
 
+        // Set flag to hide video player if a particular step has no accompanying video
+        if(videoUrl == null || videoUrl.isEmpty()) {
+            mPlayerView.setVisibility(View.GONE);
+            videoExists = false;
+        }
         return rootView;
     }
 
