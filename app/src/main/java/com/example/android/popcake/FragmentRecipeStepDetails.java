@@ -29,7 +29,8 @@ public class FragmentRecipeStepDetails extends Fragment {
     String videoUrl;
     String stepDescription;
     int stepNumber;
-    int mRecipeId;
+    Boolean hidePreviousButton;
+    Boolean hideNextButton;
     List<Step> mListSteps;
 
     TextView mStepsDescription;
@@ -66,7 +67,8 @@ public class FragmentRecipeStepDetails extends Fragment {
         if(getArguments() != null) {
             videoUrl = getArguments().getString(Const.KEY_STEP_VIDEO_URL);
             stepDescription = getArguments().getString(Const.KEY_STEP_DESCRIPTION);
-            stepNumber = getArguments().getInt(Const.KEY_STEP_NUMBER);
+            hideNextButton = getArguments().getBoolean(Const.KEY_STEP_HIDE_NEXT);
+            hidePreviousButton = getArguments().getBoolean(Const.KEY_STEP_HIDE_PREV);
         }
         if(videoUrl != null) {
             videoExists = true;
@@ -104,8 +106,12 @@ public class FragmentRecipeStepDetails extends Fragment {
 
         // Hide Previous button if it's the fragment for recipe step 0
         // (because there's nothing more previous than it)
-        if(stepNumber == 0) {
+        if(hidePreviousButton) {
             mPreviousButton.setVisibility(View.GONE);
+        }
+        // Hide Next button if it's the last step
+        if(hideNextButton) {
+            mNextButton.setVisibility(View.GONE);
         }
 
         return rootView;
@@ -113,12 +119,17 @@ public class FragmentRecipeStepDetails extends Fragment {
 
     // Constructor for creating Fragment with arguments
     // See https://www.myandroidsolutions.com/2017/10/20/android-viewpager-tutorial/
-    public static FragmentRecipeStepDetails newInstance(String videoUrl, String stepDescription, int StepNumber) {
+    public static FragmentRecipeStepDetails newInstance(
+            String videoUrl,
+            String stepDescription,
+            Boolean hidePreviousButton,
+            Boolean hideNextButton) {
         FragmentRecipeStepDetails mFragmentRecipeStepsDetails = new FragmentRecipeStepDetails();
         Bundle args = new Bundle();
         args.putString(Const.KEY_STEP_VIDEO_URL, videoUrl);
         args.putString(Const.KEY_STEP_DESCRIPTION, stepDescription);
-        args.putInt(Const.KEY_STEP_NUMBER, StepNumber);
+        args.putBoolean(Const.KEY_STEP_HIDE_PREV, hidePreviousButton);
+        args.putBoolean(Const.KEY_STEP_HIDE_NEXT, hideNextButton);
         mFragmentRecipeStepsDetails.setArguments(args);
         return mFragmentRecipeStepsDetails;
     }

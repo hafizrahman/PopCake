@@ -18,7 +18,8 @@ public class Const {
 
     public static final String KEY_STEP_VIDEO_URL       = "BUNDLE_KEY_STEP_VIDEO_URL";
     public static final String KEY_STEP_DESCRIPTION     = "BUNDLE_KEY_STEP_DESCRIPTION";
-    public static final String KEY_STEP_NUMBER          = "BUNDLE_KEY_STEP_NUMBER";
+    public static final String KEY_STEP_HIDE_PREV       = "BUNDLE_KEY_STEP_HIDE_PREV_BUTTON";
+    public static final String KEY_STEP_HIDE_NEXT       = "BUNDLE_KEY_STEP_HIDE_NEXT_BUTTON";
 
 
 

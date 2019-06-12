@@ -20,6 +20,7 @@
             android:id="@+id/step_details_instruction"
             android:padding="16dp"
             android:textAppearance="?attr/textAppearanceListItem"
+            android:layout_marginBottom="32dp"
             />
 
         <!-- Layout and spacing idea is from https://stackoverflow.com/a/56195203 -->

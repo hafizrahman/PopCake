@@ -105,11 +105,24 @@ public class ActivityStepsDetails extends AppCompatActivity implements FragmentR
 
         @Override
         public FragmentRecipeStepDetails getItem(int position) {
+            Boolean hidePreviousButton = false;
+            Boolean hideNextButton = false;
+
+            if(position == 0) {
+                hidePreviousButton = true;
+            }
+
+            if(position == mListSteps.size() - 1) {
+                hideNextButton = true;
+            }
+
+
             Step currentStep = mListSteps.get(position);
             return FragmentRecipeStepDetails.newInstance(
                     currentStep.getVideoURL(),
                     currentStep.getDescription(),
-                    position
+                    hidePreviousButton,
+                    hideNextButton
             );
         }
 
