@@ -9,6 +9,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/step_details_video"
+            android:layout_width="match_parent"
+            android:layout_height="233dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,9 +22,28 @@
             android:textAppearance="?attr/textAppearanceListItem"
             />
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/step_details_video"
-            android:layout_width="match_parent"
-            android:layout_height="233dp"/>
+        <!-- Layout and spacing idea is from https://stackoverflow.com/a/56195203 -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prev"
+                android:id="@+id/btn_step_details_prev"
+                android:layout_marginLeft="12dp"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/btn_step_details_next"
+                android:layout_marginRight="12dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
