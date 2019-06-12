@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name=".ActivityStepsDetails"
-            android:label="@string/title_activity_step_details"
+            android:label="@string/title_activity_steps_details"
             android:parentActivityName=".ActivityRecipeDetails">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

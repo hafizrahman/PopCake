@@ -94,7 +94,7 @@ public class FragmentRecipeStepDetails extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUi();
+        //hideSystemUi();
         if (videoExists && (Util.SDK_INT <= 23 || mPlayer == null)) {
             initializePlayer();
         }
