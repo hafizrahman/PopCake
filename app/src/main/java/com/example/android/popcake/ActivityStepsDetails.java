@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -19,7 +20,7 @@ import com.example.android.popcake.viewmodel.ViewModelRecipe;
 
 import java.util.List;
 
-public class ActivityStepsDetails extends AppCompatActivity {
+public class ActivityStepsDetails extends AppCompatActivity implements FragmentRecipeStepDetails.OnButtonClickListener {
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -34,6 +35,20 @@ public class ActivityStepsDetails extends AppCompatActivity {
     int mRecipeId;
     int currentStepNumber;
     List<Step> mListSteps;
+
+    @Override
+    public void onButtonClicked(View v) {
+        int currentPosition = mPager.getCurrentItem();
+        switch(v.getId()) {
+            case R.id.btn_step_details_prev:
+                mPager.setCurrentItem(currentPosition-1);
+                break;
+
+            case R.id.btn_step_details_next:
+                mPager.setCurrentItem(currentPosition+1);
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

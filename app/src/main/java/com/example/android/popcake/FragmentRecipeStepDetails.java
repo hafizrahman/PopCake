@@ -1,6 +1,7 @@
 package com.example.android.popcake;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -37,11 +39,30 @@ public class FragmentRecipeStepDetails extends Fragment {
     TextView mStepsDescription;
     private SimpleExoPlayer mPlayer;
     private PlayerView mPlayerView;
+    Button mPreviousButton;
+    Button mNextButton;
     Boolean videoExists;
 
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
+
+    private OnButtonClickListener mOnButtonClickListener;
+
+    interface OnButtonClickListener {
+        void onButtonClicked(View view);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnButtonClickListener = (OnButtonClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(((Activity) context).getLocalClassName()
+                    + " must implement OnButtonClickListener");
+        }
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +87,23 @@ public class FragmentRecipeStepDetails extends Fragment {
         if(! videoExists) {
             mPlayerView.setVisibility(View.GONE);
         }
-
         mStepsDescription.setText(stepDescription);
+        mNextButton = rootView.findViewById(R.id.btn_step_details_next);
+        mPreviousButton = rootView.findViewById(R.id.btn_step_details_prev);
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnButtonClickListener.onButtonClicked(v);
+            }
+        });
+
+        mPreviousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnButtonClickListener.onButtonClicked(v);
+            }
+        });
 
         return rootView;
     }
@@ -132,9 +168,6 @@ public class FragmentRecipeStepDetails extends Fragment {
                 .createMediaSource(Uri.parse(videoUrl));
         // Prepare the player with the source.
         mPlayer.prepare(videoSource);
-
-        //MediaSource mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)));
-        //mPlayer.prepare(mediaSource, true, false);
     }
 
     private void releasePlayer() {
