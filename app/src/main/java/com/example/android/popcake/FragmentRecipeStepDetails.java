@@ -3,7 +3,6 @@ package com.example.android.popcake;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.popcake.model.Step;
-import com.example.android.popcake.viewmodel.ViewModelRecipe;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -25,7 +21,6 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
@@ -33,6 +28,7 @@ import java.util.List;
 public class FragmentRecipeStepDetails extends Fragment {
     String videoUrl;
     String stepDescription;
+    int stepNumber;
     int mRecipeId;
     List<Step> mListSteps;
 
@@ -70,6 +66,7 @@ public class FragmentRecipeStepDetails extends Fragment {
         if(getArguments() != null) {
             videoUrl = getArguments().getString(Const.KEY_STEP_VIDEO_URL);
             stepDescription = getArguments().getString(Const.KEY_STEP_DESCRIPTION);
+            stepNumber = getArguments().getInt(Const.KEY_STEP_NUMBER);
         }
         if(videoUrl != null) {
             videoExists = true;
@@ -105,16 +102,23 @@ public class FragmentRecipeStepDetails extends Fragment {
             }
         });
 
+        // Hide Previous button if it's the fragment for recipe step 0
+        // (because there's nothing more previous than it)
+        if(stepNumber == 0) {
+            mPreviousButton.setVisibility(View.GONE);
+        }
+
         return rootView;
     }
 
     // Constructor for creating Fragment with arguments
     // See https://www.myandroidsolutions.com/2017/10/20/android-viewpager-tutorial/
-    public static FragmentRecipeStepDetails newInstance(String videoUrl, String stepDescription) {
+    public static FragmentRecipeStepDetails newInstance(String videoUrl, String stepDescription, int StepNumber) {
         FragmentRecipeStepDetails mFragmentRecipeStepsDetails = new FragmentRecipeStepDetails();
         Bundle args = new Bundle();
         args.putString(Const.KEY_STEP_VIDEO_URL, videoUrl);
         args.putString(Const.KEY_STEP_DESCRIPTION, stepDescription);
+        args.putInt(Const.KEY_STEP_NUMBER, StepNumber);
         mFragmentRecipeStepsDetails.setArguments(args);
         return mFragmentRecipeStepsDetails;
     }

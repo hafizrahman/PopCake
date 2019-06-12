@@ -108,7 +108,9 @@ public class ActivityStepsDetails extends AppCompatActivity implements FragmentR
             Step currentStep = mListSteps.get(position);
             return FragmentRecipeStepDetails.newInstance(
                     currentStep.getVideoURL(),
-                    currentStep.getDescription());
+                    currentStep.getDescription(),
+                    position
+            );
         }
 
         @Override
