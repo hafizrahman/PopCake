@@ -90,3 +90,7 @@ gen-external-apklibs
 output.json
 
 # End of https://www.gitignore.io/api/android
+
+# Remove these files
+app/src/main/java/com/example/android/popcake/ActivityStepDetails.java
+app/src/main/res/layout/activity_step_details.xml
