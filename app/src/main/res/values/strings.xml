@@ -2,4 +2,7 @@
     <string name="app_name">PopCake</string>
     <string name="title_activity_recipe_details">RecipeDetailsActivity</string>
     <string name="title_activity_steps_details">StepsDetailsActivity</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>
