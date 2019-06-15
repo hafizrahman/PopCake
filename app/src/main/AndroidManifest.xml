@@ -51,6 +51,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.popcake.ActivityRecipeDetails" />
         </activity>
+
+        <service android:name=".PopCakeHomescreenWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
     </application>
 
 </manifest>
