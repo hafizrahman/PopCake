@@ -17,4 +17,8 @@ public interface RecipeDAO {
 
     @Query("SELECT * from tb_recipe")
     LiveData<List<Recipe>> getRecipes();
+
+    // The non-livedata version of the query, for widget purposes
+    @Query("SELECT * from tb_recipe")
+    List<Recipe> getRecipesForWidgets();
 }

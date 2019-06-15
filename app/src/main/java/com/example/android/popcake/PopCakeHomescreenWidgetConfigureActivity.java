@@ -5,9 +5,22 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.example.android.popcake.database.IngredientDAO;
+import com.example.android.popcake.database.PopCakeRoomDatabase;
+import com.example.android.popcake.database.RecipeDAO;
+import com.example.android.popcake.model.Ingredient;
+import com.example.android.popcake.model.Recipe;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 /**
  * The configuration screen for the {@link PopCakeHomescreenWidget PopCakeHomescreenWidget} AppWidget.
@@ -18,12 +31,16 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetText;
+    Spinner mSpinner;
+    List<Recipe> mRecipes;
+    PopCakeRoomDatabase mPopCakeRoomDB;
+
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = PopCakeHomescreenWidgetConfigureActivity.this;
 
             // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
+            //String widgetText = mAppWidgetText.getText().toString();
             saveTitlePref(context, mAppWidgetId, widgetText);
 
             // It is the responsibility of the configuration activity to update the app widget
@@ -75,8 +92,17 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
+        // Init DB
+        //mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(this);
+
+
         setContentView(R.layout.pop_cake_homescreen_widget_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+        //mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+
+        // Fill spinner from DB
+        new getRecipeAsyncTask(this, this).execute();
+
+
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
@@ -93,7 +119,52 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(PopCakeHomescreenWidgetConfigureActivity.this, mAppWidgetId));
+        //mAppWidgetText.setText(loadTitlePref(PopCakeHomescreenWidgetConfigureActivity.this, mAppWidgetId));
+    }
+
+
+    // Insert method for Ingredients
+    static class getRecipeAsyncTask extends AsyncTask<Void, Void, List<Recipe>> {
+        PopCakeRoomDatabase mPopCakeRoomDB;
+        private RecipeDAO asyncTaskRecipeDAO;
+        Context mContext; // See https://stackoverflow.com/questions/37531862/how-to-pass-context-to-asynctask/37532046
+        Activity mActivity; // see https://stackoverflow.com/a/31167792
+
+        public getRecipeAsyncTask(Context context, Activity activity) {
+            mContext = context;
+            mActivity = activity;
+            mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(mContext);
+            asyncTaskRecipeDAO = mPopCakeRoomDB.recipeDAO();
+        }
+
+        @Override
+        protected List<Recipe> doInBackground(Void... voids) {
+            return asyncTaskRecipeDAO.getRecipesForWidgets();
+        }
+
+        // This runs in UI when background thread finishes
+        @Override
+        protected void onPostExecute(List<Recipe> recipes) {
+            Spinner asyncTaskSpinner;
+            super.onPostExecute(recipes);
+            String recipeNames[] = new String[recipes.size()];
+
+            Log.d("WOIWOI", "size is " + recipes.size());
+
+            for(int i = 0; i<recipes.size(); i++) {
+                recipeNames[i] = recipes.get(i).getName();
+            }
+
+            // Learned about setting up spinner and adapter from
+            // https://stackoverflow.com/a/34808771
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    mContext,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    recipeNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            asyncTaskSpinner = mActivity.findViewById(R.id.sp_widget_config_recipe_list);
+            asyncTaskSpinner.setAdapter(adapter);
+        }
     }
 }
 
