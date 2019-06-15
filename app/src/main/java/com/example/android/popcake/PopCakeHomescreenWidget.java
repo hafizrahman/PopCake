@@ -3,6 +3,7 @@ package com.example.android.popcake;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 /**
@@ -14,10 +15,14 @@ public class PopCakeHomescreenWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = PopCakeHomescreenWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        //CharSequence widgetText = PopCakeHomescreenWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pop_cake_homescreen_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        //views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        Intent intent = new Intent(context, PopCakeHomescreenWidgetService.class);
+        views.setTextViewText(R.id.tv_widget_recipe_name, "Recipe name");
+        views.setRemoteAdapter(R.id.lv_widget_recipe_ingredients, intent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

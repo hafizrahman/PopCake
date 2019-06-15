@@ -18,4 +18,8 @@ public interface IngredientDAO {
     // Get all ingredients for a particular recipe
     @Query("SELECT * from tb_ingredient WHERE recipeId = :recipeId")
     LiveData<List<Ingredient>> getIngredientsForRecipe(Integer recipeId);
+
+    // Get all ingredients for a particular recipe, the non LiveData version, for widgets.
+    @Query("SELECT * from tb_ingredient WHERE recipeId = :recipeId")
+    List<Ingredient> getIngredientsForRecipeForWidget(Integer recipeId);
 }
