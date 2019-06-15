@@ -20,9 +20,11 @@ import android.util.Log;
 public class PopCakeHomescreenWidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
     List<Ingredient> mIngredient = new ArrayList<>();
     Context mContext = null;
+    int mRecipeId;
 
-    public PopCakeHomescreenWidgetDataProvider(Context context, Intent intent) {
+    public PopCakeHomescreenWidgetDataProvider(Context context, Intent intent, int recipeId) {
         mContext = context;
+        mRecipeId = recipeId;
     }
 
     @Override
@@ -42,19 +44,19 @@ public class PopCakeHomescreenWidgetDataProvider implements RemoteViewsService.R
 
     @Override
     public void onCreate() {
-        //initData();
+
     }
 
     @Override
     public void onDataSetChanged() {
         PopCakeRoomDatabase mPopCakeRoomDB;
         IngredientDAO mIngredientDAO;
-        int recipeId = 1;
+
         // Init DB
         mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(mContext);
         mIngredientDAO = mPopCakeRoomDB.ingredientDAO();
-        mIngredient = mIngredientDAO.getIngredientsForRecipeForWidget(recipeId);
-        Log.d("ZZZPOP", "size is " + mIngredient.size());
+        Log.d("PRABOWO", "sampai di provider, saya pilih " + mRecipeId);
+        mIngredient = mIngredientDAO.getIngredientsForRecipeForWidget(mRecipeId);
     }
 
     @Override
@@ -79,11 +81,9 @@ public class PopCakeHomescreenWidgetDataProvider implements RemoteViewsService.R
 
     @Override
     public RemoteViews getViewAt(int position) {
-        Log.d("ZZZPOP", "[position is " + position);
-
         Ingredient currentItem = mIngredient.get(position);
         RemoteViews view = new RemoteViews(mContext.getPackageName(), R.layout.pop_cake_homescreen_widget_list_item);
-        String ingredientText = currentItem.getMeasure() + " " + currentItem.getQuantity() + " " + currentItem.getIngredient();
+        String ingredientText = currentItem.getQuantity() + " " + currentItem.getMeasure() + " " + currentItem.getIngredient();
         view.setTextViewText(R.id.tv_widget_recipe_ingredient_item, ingredientText);
         return view;
     }

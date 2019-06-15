@@ -39,9 +39,22 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
         public void onClick(View v) {
             final Context context = PopCakeHomescreenWidgetConfigureActivity.this;
 
+            // Get currently selected value from the spinner, then save to preferences
+            mSpinner = findViewById(R.id.sp_widget_config_recipe_list);
+            // By default spinner position starts from 0, while our recipe id starts from 1,
+            // hence why we add by 1.
+            int selectedRecipeId = mSpinner.getSelectedItemPosition() + 1;
+            Log.d("PRABOWO", "saya pilih " + selectedRecipeId);
+
+
+            SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+            prefs.putInt(PREF_PREFIX_KEY + mAppWidgetId, selectedRecipeId);
+            prefs.apply();
+
+
             // When the button is clicked, store the string locally
             //String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
+            //saveTitlePref(context, mAppWidgetId, widgetText);
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -59,23 +72,13 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
         super();
     }
 
-    // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
-        prefs.apply();
-    }
 
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
-    static String loadTitlePref(Context context, int appWidgetId) {
+    static int loadSelectedRecipeIdPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-        if (titleValue != null) {
-            return titleValue;
-        } else {
-            return context.getString(R.string.appwidget_text);
-        }
+        int selectedRecipeId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, 1);
+        return selectedRecipeId;
     }
 
     static void deleteTitlePref(Context context, int appWidgetId) {
@@ -143,13 +146,12 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
         }
 
         // This runs in UI when background thread finishes
+        // In this case, we fill the spinner with recipe names
         @Override
         protected void onPostExecute(List<Recipe> recipes) {
             Spinner asyncTaskSpinner;
             super.onPostExecute(recipes);
             String recipeNames[] = new String[recipes.size()];
-
-            Log.d("WOIWOI", "size is " + recipes.size());
 
             for(int i = 0; i<recipes.size(); i++) {
                 recipeNames[i] = recipes.get(i).getName();
