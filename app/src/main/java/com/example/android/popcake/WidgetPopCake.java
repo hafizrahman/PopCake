@@ -8,20 +8,20 @@ import android.widget.RemoteViews;
 
 /**
  * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link PopCakeHomescreenWidgetConfigureActivity PopCakeHomescreenWidgetConfigureActivity}
+ * App Widget Configuration implemented in {@link WidgetPopCakeConfigureActivity WidgetPopCakeConfigureActivity}
  */
-public class PopCakeHomescreenWidget extends AppWidgetProvider {
+public class WidgetPopCake extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        int selectedRecipeId = PopCakeHomescreenWidgetConfigureActivity.loadSelectedRecipeIdPref(context, appWidgetId);
+        int selectedRecipeId = WidgetPopCakeConfigureActivity.loadSelectedRecipeIdPref(context, appWidgetId);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pop_cake_homescreen_widget);
         //views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        Intent intent = new Intent(context, PopCakeHomescreenWidgetService.class);
+        Intent intent = new Intent(context, WidgetPopCakeService.class);
         intent.putExtra("WIDGET_SELECTED_RECIPE_ID", selectedRecipeId);
 
         views.setTextViewText(R.id.tv_widget_recipe_name, "Recipe name");
@@ -43,7 +43,7 @@ public class PopCakeHomescreenWidget extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            PopCakeHomescreenWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            WidgetPopCakeConfigureActivity.deleteTitlePref(context, appWidgetId);
         }
     }
 

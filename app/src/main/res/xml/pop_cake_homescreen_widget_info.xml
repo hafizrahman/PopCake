@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.example.android.popcake.PopCakeHomescreenWidgetConfigureActivity"
+    android:configure="com.example.android.popcake.WidgetPopCakeConfigureActivity"
     android:initialKeyguardLayout="@layout/pop_cake_homescreen_widget"
     android:initialLayout="@layout/pop_cake_homescreen_widget"
     android:minWidth="120dp"

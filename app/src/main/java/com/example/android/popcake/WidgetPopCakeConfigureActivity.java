@@ -13,21 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.android.popcake.database.IngredientDAO;
 import com.example.android.popcake.database.PopCakeRoomDatabase;
 import com.example.android.popcake.database.RecipeDAO;
-import com.example.android.popcake.model.Ingredient;
 import com.example.android.popcake.model.Recipe;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 /**
- * The configuration screen for the {@link PopCakeHomescreenWidget PopCakeHomescreenWidget} AppWidget.
+ * The configuration screen for the {@link WidgetPopCake WidgetPopCake} AppWidget.
  */
-public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
+public class WidgetPopCakeConfigureActivity extends Activity {
 
-    private static final String PREFS_NAME = "com.example.android.popcake.PopCakeHomescreenWidget";
+    private static final String PREFS_NAME = "com.example.android.popcake.WidgetPopCake";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetText;
@@ -37,7 +34,7 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            final Context context = PopCakeHomescreenWidgetConfigureActivity.this;
+            final Context context = WidgetPopCakeConfigureActivity.this;
 
             // Get currently selected value from the spinner, then save to preferences
             mSpinner = findViewById(R.id.sp_widget_config_recipe_list);
@@ -58,7 +55,7 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            PopCakeHomescreenWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+            WidgetPopCake.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
@@ -68,7 +65,7 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
         }
     };
 
-    public PopCakeHomescreenWidgetConfigureActivity() {
+    public WidgetPopCakeConfigureActivity() {
         super();
     }
 
@@ -122,7 +119,7 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
             return;
         }
 
-        //mAppWidgetText.setText(loadTitlePref(PopCakeHomescreenWidgetConfigureActivity.this, mAppWidgetId));
+        //mAppWidgetText.setText(loadTitlePref(WidgetPopCakeConfigureActivity.this, mAppWidgetId));
     }
 
 

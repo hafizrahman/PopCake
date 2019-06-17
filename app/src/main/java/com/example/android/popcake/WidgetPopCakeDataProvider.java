@@ -14,15 +14,15 @@ import android.util.Log;
 
 
 /**
- * PopCakeHomescreenWidgetDataProvider acts as the adapter for the collection view widget,
+ * WidgetPopCakeDataProvider acts as the adapter for the collection view widget,
  * providing RemoteViews to the widget in the getViewAt method.
  */
-public class PopCakeHomescreenWidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
+public class WidgetPopCakeDataProvider implements RemoteViewsService.RemoteViewsFactory {
     List<Ingredient> mIngredient = new ArrayList<>();
     Context mContext = null;
     int mRecipeId;
 
-    public PopCakeHomescreenWidgetDataProvider(Context context, Intent intent, int recipeId) {
+    public WidgetPopCakeDataProvider(Context context, Intent intent, int recipeId) {
         mContext = context;
         mRecipeId = recipeId;
     }

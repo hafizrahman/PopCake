@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".PopCakeHomescreenWidget">
+        <receiver android:name=".WidgetPopCake">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -22,7 +22,7 @@
                 android:resource="@xml/pop_cake_homescreen_widget_info" />
         </receiver>
 
-        <activity android:name=".PopCakeHomescreenWidgetConfigureActivity">
+        <activity android:name=".WidgetPopCakeConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -52,7 +52,7 @@
                 android:value="com.example.android.popcake.ActivityRecipeDetails" />
         </activity>
 
-        <service android:name=".PopCakeHomescreenWidgetService"
+        <service android:name=".WidgetPopCakeService"
             android:permission="android.permission.BIND_REMOTEVIEWS"></service>
     </application>
 
