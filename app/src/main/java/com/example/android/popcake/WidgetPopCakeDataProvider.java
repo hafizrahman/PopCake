@@ -55,7 +55,7 @@ public class WidgetPopCakeDataProvider implements RemoteViewsService.RemoteViews
         // Init DB
         mPopCakeRoomDB = PopCakeRoomDatabase.getDatabase(mContext);
         mIngredientDAO = mPopCakeRoomDB.ingredientDAO();
-        Log.d( Const.APP_TAG, "sampai di provider, saya pilih " + mRecipeId);
+        Log.d( Const.APP_TAG, "About to call DAO, for " + mRecipeId);
         mIngredient = mIngredientDAO.getIngredientsForRecipeForWidget(mRecipeId);
     }
 

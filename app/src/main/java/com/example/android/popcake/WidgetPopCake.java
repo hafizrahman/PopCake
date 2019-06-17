@@ -4,7 +4,10 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.RemoteViews;
+import android.util.Log;
+
 
 /**
  * Implementation of App Widget functionality.
@@ -22,9 +25,13 @@ public class WidgetPopCake extends AppWidgetProvider {
         //views.setTextViewText(R.id.appwidget_text, widgetText);
 
         Intent intent = new Intent(context, WidgetPopCakeService.class);
-        intent.putExtra("WIDGET_SELECTED_RECIPE_ID", selectedRecipeId);
 
-        views.setTextViewText(R.id.tv_widget_recipe_name, "Recipe name");
+        // Intent data sending is a bit different for RemoteViewService
+        // Refer to https://stackoverflow.com/a/46414673 for this bit of code
+        intent.setData(Uri.fromParts("content", String.valueOf(selectedRecipeId), null));
+
+
+        views.setTextViewText(R.id.tv_widget_recipe_name, "Recipe id is " + selectedRecipeId);
         views.setRemoteAdapter(R.id.lv_widget_recipe_ingredients, intent);
 
         // Instruct the widget manager to update the widget
@@ -35,6 +42,7 @@ public class WidgetPopCake extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
+            Log.d(Const.APP_TAG, "Hi, currently updating " + appWidgetId);
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }

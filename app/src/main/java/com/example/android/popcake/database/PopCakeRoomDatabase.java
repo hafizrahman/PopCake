@@ -33,11 +33,10 @@ public abstract class PopCakeRoomDatabase extends RoomDatabase {
                             .build();
                 }
             }
-        Log.d(Const.APP_TAG, "Database created");
+        //Log.d(Const.APP_TAG, "Database created");
         }
         else {
-            Log.d(Const.APP_TAG, "Database already made");
-
+            //Log.d(Const.APP_TAG, "Database already made");
         }
         return INSTANCE;
     }
