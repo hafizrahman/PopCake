@@ -44,7 +44,7 @@ public class PopCakeHomescreenWidgetConfigureActivity extends Activity {
             // By default spinner position starts from 0, while our recipe id starts from 1,
             // hence why we add by 1.
             int selectedRecipeId = mSpinner.getSelectedItemPosition() + 1;
-            Log.d("PRABOWO", "saya pilih " + selectedRecipeId);
+            Log.d(Const.APP_TAG, "saya pilih " + selectedRecipeId);
 
 
             SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
