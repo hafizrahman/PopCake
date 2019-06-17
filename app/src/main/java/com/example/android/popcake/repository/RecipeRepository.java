@@ -47,6 +47,12 @@ public class RecipeRepository {
         mRecipeDAO = mPopCakeRoomDB.recipeDAO();
         mStepDAO = mPopCakeRoomDB.stepDAO();
 
+        // TODO: Figure out a way to only run this on first app run only (and not run if there's
+        // no internet.
+        // doNetworkCall();
+    }
+
+    void doNetworkCall() {
         // Init network
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
